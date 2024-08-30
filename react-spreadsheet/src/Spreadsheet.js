@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Spreadsheet.css';
 
 const Spreadsheet = () => {
-    const [data, setData] = useState(initializeData(10, 10)); // 10x10 grid
+    const [data, setData] = useState(initializeData(100, 10)); // 10x10 grid
 
     const handleCellChange = (rowIndex, colIndex, value) => {
         const newData = [...data];
