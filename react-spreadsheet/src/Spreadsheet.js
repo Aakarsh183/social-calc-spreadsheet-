@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './Spreadsheet.css';
 
 const Spreadsheet = () => {
-    const [data, setData] = useState(initializeData(100, 10)); // 10x10 grid
+    const [data, setData] = useState(initializeData(100, 10));
+    const [dropdownOpen, setDropdownOpen] = useState(false);
 
     const handleCellChange = (rowIndex, colIndex, value) => {
         const newData = [...data];
@@ -35,6 +36,42 @@ const Spreadsheet = () => {
             handleCellChange(rowIndex, colIndex, result);
         }
     };
+
+    const addRow = () => {
+        setData([...data, Array(data[0].length).fill('')]);
+    };
+
+    const deleteRow = () => {
+        if (data.length > 1) {
+            setData(data.slice(0, -1));
+        }
+    };
+
+    const addColumn = () => {
+        const newData = data.map(row => [...row, '']);
+        setData(newData);
+    };
+
+    const deleteColumn = () => {
+        if (data[0].length > 1) {
+            const newData = data.map(row => row.slice(0, -1));
+            setData(newData);
+        }
+    };
+
+    const saveData = () => {
+        console.log('Saved Data:', data);
+        alert('Data saved successfully!');
+    };
+
+    const logOut = () => {
+        alert('Logged out successfully!');
+    };
+
+    const toggleDropdown = () => {
+        setDropdownOpen(!dropdownOpen);
+    };
+
      const sortColumn = (colIndex) => {
         const sortedData = [...data].sort((a, b) => {
             if (a[colIndex] < b[colIndex]) return -1;
@@ -60,6 +97,17 @@ const Spreadsheet = () => {
         setData(newData);
     };
     return (
+        <div>
+          <Navbar
+                toggleDropdown={toggleDropdown}
+                dropdownOpen={dropdownOpen}
+                addRow={addRow}
+                deleteRow={deleteRow}
+                addColumn={addColumn}
+                deleteColumn={deleteColumn}
+                saveData={saveData}
+                logOut={logOut}
+            />
         <table className="spreadsheet">
             <thead>
                 <tr>
@@ -98,6 +146,27 @@ const Spreadsheet = () => {
                 ))}
             </tbody>
         </table>
+     </div>
+    );
+};
+
+const Navbar = ({ toggleDropdown, dropdownOpen, addRow, deleteRow,addColumn, deleteColumn, saveData, logOut }) => {
+    return (
+        <nav className={`navbar ${dropdownOpen ? 'active' : ''}`}>
+            <button className="dropdown-btn" onClick={toggleDropdown}>
+                Menu
+            </button>
+            {dropdownOpen && (
+                <div className="dropdown-content">
+                    <button onClick={addRow}>Add Row</button>
+                    <button onClick={deleteRow}>Delete Row</button>
+                    <button onClick={addColumn}>Add Column</button>
+                    <button onClick={deleteColumn}>Delete Column</button>
+                    <button onClick={saveData}>Save</button>
+                    <button onClick={logOut}>Log Out</button>
+                </div>
+            )}
+        </nav>
     );
 };
 
