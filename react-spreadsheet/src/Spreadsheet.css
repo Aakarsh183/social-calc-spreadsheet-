@@ -21,3 +21,65 @@ td[contenteditable="true"] {
 td:focus {
     outline: 2px solid #4a90e2;
 }
+
+.navbar {
+    background-color: #f8f9fa;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.dropdown-btn {
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 20px;
+}
+
+.dropdown-content {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: blue;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    margin-top: 10px;
+    border-radius: 20px;
+}
+
+.dropdown-content button {
+    background-color: #87CEEB;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-size: 16px;
+    margin: 5px 5px;
+}
+
+.dropdown-content button:hover {
+    background-color: #0056b3;
+}
+
+.navbar.active .dropdown-content {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    margin-top: 0;
+    margin-left: 20px;
+}
+.dropdown-content button{
+    border-radius: 20px;
+}
+@media (max-width: 768px) {
+    .navbar.active .dropdown-content {
+        flex-direction: column;
+        position: absolute;
+        margin-left: 0;
+    }
+}
